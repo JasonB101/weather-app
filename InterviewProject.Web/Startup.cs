@@ -56,6 +56,7 @@ namespace InterviewProject
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                
             });
 
             app.UseSpa(spa =>

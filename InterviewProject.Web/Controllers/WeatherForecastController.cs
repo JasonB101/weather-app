@@ -12,6 +12,7 @@ namespace InterviewProject.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    //[Route("[controller]/[action]")]
     public class WeatherForecastController : ControllerBase
     {
         static readonly HttpClient client = new HttpClient();
@@ -42,8 +43,8 @@ namespace InterviewProject.Controllers
             }
         }
 
-        [HttpGet("{woeid}")]
-       async public Task <object> Get(int woeid)
+        [HttpGet("{woeid:int}")]
+       async public Task <object> GetLocation(int woeid)
         {
             Console.WriteLine(string.Format("The woeid id is {0}", woeid));
             string locationQuery = string.Format("https://www.metaweather.com/api/location/{0}", woeid);
@@ -51,6 +52,15 @@ namespace InterviewProject.Controllers
             return results;
         }
 
-        
+        [HttpGet("{keyword}")]
+        async public Task<object> SearchLocations(string keyword)
+        {
+            Console.WriteLine(string.Format("The woeid id is {0}", keyword));
+            string locationQuery = string.Format("https://www.metaweather.com/api/location/search/?query={0}", keyword);
+            object results = await QueryResults(locationQuery);
+            return results;
+        }
+
+
     }
 }
