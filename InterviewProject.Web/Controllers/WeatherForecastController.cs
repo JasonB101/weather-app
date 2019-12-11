@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -11,10 +14,7 @@ namespace InterviewProject.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        static readonly HttpClient client = new HttpClient();
 
         private readonly ILogger<WeatherForecastController> _logger;
 
@@ -23,17 +23,34 @@ namespace InterviewProject.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        async static Task<object> QueryResults(string query)
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            try
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                HttpResponseMessage response = await client.GetAsync(query);
+                response.EnsureSuccessStatusCode();
+                String responseBody = await response.Content.ReadAsStringAsync();
+                var results = JsonSerializer.Deserialize<object>(responseBody);
+
+                return results;
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine("\nException Caught!");
+                Console.WriteLine("Message :{0} ", e.Message);
+                return new object();
+            }
         }
+
+        [HttpGet("{woeid}")]
+       async public Task <object> Get(int woeid)
+        {
+            Console.WriteLine(string.Format("The woeid id is {0}", woeid));
+            string locationQuery = string.Format("https://www.metaweather.com/api/location/{0}", woeid);
+            object results = await QueryResults(locationQuery);
+            return results;
+        }
+
+        
     }
 }

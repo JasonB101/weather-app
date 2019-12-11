@@ -5,6 +5,7 @@ const Weather = (props) => {
 
   const [forecasts, setForecasts] = useState([]);
   const [loading, changeLoadingStatus] = useState(true);
+  const [locationWoeid, changeLocationWoeid] = useState(2487610)
   
   useEffect(() => {
   populateWeatherData()
@@ -15,7 +16,7 @@ const Weather = (props) => {
       : <Forecast forecasts={forecasts}/>;
 
   async function populateWeatherData() {
-    const response = await fetch('weatherforecast');
+    const response = await fetch(`weatherforecast/${locationWoeid}`);
     const data = await response.json();
     setForecasts(data);
     changeLoadingStatus(false);
