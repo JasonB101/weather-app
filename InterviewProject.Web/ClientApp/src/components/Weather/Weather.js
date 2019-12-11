@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Forecast from "./Forecast/Forecast"
+import SearchLocation from './SearchLocation/SearchLocation';
 
 const Weather = (props) => {
 
@@ -28,6 +29,7 @@ const Weather = (props) => {
     return (
       <div>
         <h1 id="tabelLabel" >Weather forecast</h1>
+        <SearchLocation/>
         {contents}
       </div>
     );
