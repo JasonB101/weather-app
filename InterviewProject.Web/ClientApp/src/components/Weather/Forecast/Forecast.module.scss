@@ -1,0 +1,13 @@
+.wrapper {
+    padding: 20px 0;
+
+    & > div {
+        padding: 10px 0;
+        display: flex;
+    }
+
+    & div span {
+        margin: 5px;
+    }
+
+}
