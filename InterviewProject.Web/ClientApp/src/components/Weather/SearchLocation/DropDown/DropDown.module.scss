@@ -1,0 +1,25 @@
+.wrapper {
+    max-height: 200px;
+    overflow: auto;
+    background-color: rgb(222, 244, 252);
+    position: absolute;
+    
+    &::-webkit-scrollbar {
+        background-color: rgb(222, 244, 252);
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(199, 199, 199);
+
+    }
+
+    h4 {
+        cursor: pointer;
+        margin: 3px;
+        padding: 2px 2px 2px 8px;
+    }
+    h4:hover {
+        background-color: rgb(135, 221, 252);
+    }
+}

@@ -46,7 +46,6 @@ namespace InterviewProject.Controllers
         [HttpGet("{woeid:int}")]
        async public Task <object> GetLocation(int woeid)
         {
-            Console.WriteLine(string.Format("The woeid id is {0}", woeid));
             string locationQuery = string.Format("https://www.metaweather.com/api/location/{0}", woeid);
             object results = await QueryResults(locationQuery);
             return results;
@@ -55,7 +54,6 @@ namespace InterviewProject.Controllers
         [HttpGet("{keyword}")]
         async public Task<object> SearchLocations(string keyword)
         {
-            Console.WriteLine(string.Format("The woeid id is {0}", keyword));
             string locationQuery = string.Format("https://www.metaweather.com/api/location/search/?query={0}", keyword);
             object results = await QueryResults(locationQuery);
             return results;
