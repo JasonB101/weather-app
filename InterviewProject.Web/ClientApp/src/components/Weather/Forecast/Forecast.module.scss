@@ -4,10 +4,20 @@
     & > div {
         padding: 10px 0;
         display: flex;
+        
     }
 
     & div span {
         margin: 5px;
     }
 
+}
+
+@media (max-width: 775px){
+    .wrapper {
+        & > div {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    }
 }
