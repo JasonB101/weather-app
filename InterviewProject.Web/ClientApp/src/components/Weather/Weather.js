@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext } from 'react';
 import Forecast from "./Forecast/Forecast"
 import SearchLocation from './SearchLocation/SearchLocation';
+import Styles from "./Weather.module.scss";
 
 export const weatherData = createContext({});
 
@@ -16,7 +17,9 @@ const Weather = (props) => {
   }, [locationWoeid]);
 
   let contents = loading
-    ? <p><em>Loading...</em></p>
+    ? <p className={Styles.loadingWrapper} ><em>
+      <img className={Styles.raincloud} src={require("../../images/raining.gif")} alt="Rain Cloud" />
+      Loading...</em></p>
     : <Forecast city={city} forecasts={forecasts} />;
 
   const contextValue = {
